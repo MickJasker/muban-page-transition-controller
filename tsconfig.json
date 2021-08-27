@@ -1,0 +1,21 @@
+{
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"],
+  "compilerOptions": {
+    "target": "es5",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "module": "commonjs",
+    "outDir": "dist",
+    "lib": [
+      "ES2015",
+      "DOM",
+      "DOM.Iterable"
+    ]
+  }
+}

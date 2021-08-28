@@ -1,1 +1,3 @@
-// add code here
+import { initialisePageTransitions } from './initialisePageTransitions';
+
+export { initialisePageTransitions };

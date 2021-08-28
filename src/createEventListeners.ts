@@ -1,28 +1,20 @@
-import type { DisposableManager } from 'seng-disposable-manager';
 import { addEventListener } from 'seng-disposable-event-listener';
-import { navigateTo } from './navigateTo';
 import type { PageTransitionController } from './initialisePageTransitions';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
+import { navigateTo } from './navigateTo';
 import type { Url } from './types/Url';
 
-export const onLinkClick = async (
-  event: MouseEvent,
-  pageTransitionController: PageTransitionController<PageTransitionComponent>
+export const onHistoryChange = async (
+  controller: PageTransitionController<PageTransitionComponent>
 ): Promise<void> => {
-  const link = event.target as HTMLAnchorElement;
-  const url = new URL(link.href);
-
-  await navigateTo(pageTransitionController, url.href as Url);
+  if (controller.currentLocation === location.pathname) return;
+  await navigateTo(controller, location.href as Url, false);
 };
 
 export const createEventListeners = (
-  controller: PageTransitionController<PageTransitionComponent>,
-  linkElements: ReadonlyArray<HTMLAnchorElement>
+  controller: PageTransitionController<PageTransitionComponent>
 ): void => {
   const { disposableManager } = controller;
-  linkElements.forEach((link) =>
-    disposableManager.add(
-      addEventListener(link, 'click', (event: MouseEvent) => onLinkClick(event, controller))
-    )
-  );
+
+  disposableManager.add(addEventListener(window, 'popstate', () => onHistoryChange(controller)));
 };

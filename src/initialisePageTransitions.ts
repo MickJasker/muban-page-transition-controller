@@ -4,6 +4,7 @@ import { checkCompatibility } from './checkCompatibility';
 import { getElementComponent } from './util/getElementComponent';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
+import type { Url } from './types/Url';
 
 export interface PageTransitionOptions {
   transitionComponentSelector: ElementSelector;
@@ -11,9 +12,11 @@ export interface PageTransitionOptions {
 }
 
 export interface PageTransitionController<TransitionComponent extends PageTransitionComponent> {
-  readonly options: PageTransitionOptions;
-  readonly transitionComponent: TransitionComponent;
-  readonly disposableManager: DisposableManager;
+  options: PageTransitionOptions;
+  transitionComponent: TransitionComponent;
+  disposableManager: DisposableManager;
+  currentLocation: Url;
+  setCurrentLocation: (url: Url) => void;
 }
 
 export const initialisePageTransitions = async <
@@ -29,13 +32,17 @@ export const initialisePageTransitions = async <
     options.transitionComponentSelector
   );
 
-  const controller = {
+  const controller: PageTransitionController<TransitionComponent> = {
     options,
     transitionComponent,
     disposableManager,
+    currentLocation: location.href as Url,
+    setCurrentLocation: (url: Url) => {
+      controller.currentLocation = url;
+    },
   };
 
-  createEventListeners(controller, options.linkElements);
+  createEventListeners(controller);
 
   return controller;
 };

@@ -9,6 +9,7 @@ module.exports = {
   rules: {
     // Additions
     '@typescript-eslint/consistent-type-imports': ['error'],
+    'no-restricted-globals': 'off',
     '@typescript-eslint/naming-convention': [
       'error',
       {

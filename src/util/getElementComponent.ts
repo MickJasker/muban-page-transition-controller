@@ -1,6 +1,5 @@
 import { getComponentForElement } from 'muban-core';
 import type ICoreComponent from 'muban-core/lib/interface/ICoreComponent';
-import type App from './AbstractApp';
 
 export const loadComponent = <Component extends ICoreComponent>(
   element: HTMLElement
@@ -30,9 +29,5 @@ export const getElementComponent = <Component extends ICoreComponent>(
   if (!element) throw new Error('Element cannot be found');
   return loadComponent<Component>(element);
 };
-
-export function getAppComponent(): Promise<App> {
-  return getElementComponent<App>(`[data-component="app-root"]`);
-}
 
 export default getElementComponent;

@@ -9,6 +9,8 @@
     "build": "rimraf dist && yarn build:ts && yarn build:ts-esm",
     "build:ts": "tsc -d --skipLibCheck",
     "build:ts-esm": "tsc -p tsconfig.esm.json -d --skipLibCheck",
+    "lint": "eslint src --ext .js,.ts --cache",
+    "fix": "eslint src --ext .js,.ts --cache --fix",
     "prepublishOnly": "yarn build"
   },
   "author": "Mick Jasker <mick.jasker@mediamonks.com>",

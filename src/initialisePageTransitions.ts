@@ -7,42 +7,49 @@ import { createEventListeners } from './createEventListeners';
 import type { Url } from './types/Url';
 
 export interface PageTransitionOptions {
-  transitionComponentSelector: ElementSelector;
+  readonly transitionComponentSelector: ElementSelector;
+  readonly onNavigationComplete: () => void;
   readonly linkElements: ReadonlyArray<HTMLAnchorElement>;
 }
 
 export interface PageTransitionController<TransitionComponent extends PageTransitionComponent> {
-  options: PageTransitionOptions;
-  transitionComponent: TransitionComponent;
-  disposableManager: DisposableManager;
+  readonly transitionComponent: TransitionComponent;
+  readonly disposableManager: DisposableManager;
+  linkElements: ReadonlyArray<HTMLAnchorElement>;
   currentLocation: Url;
-  setCurrentLocation: (url: Url) => void;
+  readonly setCurrentLocation: (url: Url) => void;
+  readonly setLinkElements: (elements: ReadonlyArray<HTMLAnchorElement>) => void;
+  onNavigationComplete?: () => void;
 }
 
 export const initialisePageTransitions = async <
-  TransitionComponent extends PageTransitionComponent
+  TransitionComponent extends PageTransitionComponent,
 >(
-  options: PageTransitionOptions
+  options: PageTransitionOptions,
 ): Promise<PageTransitionController<TransitionComponent>> => {
   const disposableManager = new DisposableManager();
 
   await checkCompatibility();
 
   const transitionComponent = await getElementComponent<TransitionComponent>(
-    options.transitionComponentSelector
+    options.transitionComponentSelector,
   );
 
   const controller: PageTransitionController<TransitionComponent> = {
-    options,
     transitionComponent,
     disposableManager,
+    onNavigationComplete: options.onNavigationComplete,
     currentLocation: location.href as Url,
+    linkElements: options.linkElements,
     setCurrentLocation: (url: Url) => {
       controller.currentLocation = url;
     },
+    setLinkElements: (elements) => {
+      controller.linkElements = elements;
+    },
   };
 
-  createEventListeners(controller);
+  createEventListeners(controller, controller.linkElements);
 
   return controller;
 };

@@ -8,17 +8,17 @@ import { renderPage } from './renderPage';
 export const navigateTo = async (
   controller: PageTransitionController<PageTransitionComponent>,
   url: Url,
-  updatePushState = true
+  updatePushState = true,
 ): Promise<void> => {
   await checkCompatibility();
-  const { transitionComponent } = controller;
+  const { transitionComponent, onNavigationComplete } = controller;
 
   try {
     const [newDocument] = await Promise.all([
       fetchDocument(url),
       transitionComponent.transitionOut(),
     ]);
-    await renderPage(newDocument);
+    const app = await renderPage(newDocument);
 
     if (updatePushState) {
       history.pushState(null, newDocument.title, new URL(url));
@@ -27,7 +27,10 @@ export const navigateTo = async (
     transitionComponent.setInBetweenTransition();
     document.title = newDocument.title;
     controller.setCurrentLocation(location.href as Url);
+    await app.adopted();
     await transitionComponent.transitionIn();
+
+    if (onNavigationComplete) onNavigationComplete();
   } catch (error) {
     location.replace(url);
   }

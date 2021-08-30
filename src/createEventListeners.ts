@@ -5,16 +5,25 @@ import { navigateTo } from './navigateTo';
 import type { Url } from './types/Url';
 
 export const onHistoryChange = async (
-  controller: PageTransitionController<PageTransitionComponent>
+  controller: PageTransitionController<PageTransitionComponent>,
 ): Promise<void> => {
   if (controller.currentLocation === location.pathname) return;
   await navigateTo(controller, location.href as Url, false);
 };
 
 export const createEventListeners = (
-  controller: PageTransitionController<PageTransitionComponent>
+  controller: PageTransitionController<PageTransitionComponent>,
+  linkElements: ReadonlyArray<HTMLAnchorElement>,
 ): void => {
   const { disposableManager } = controller;
 
   disposableManager.add(addEventListener(window, 'popstate', () => onHistoryChange(controller)));
+
+  linkElements.forEach((link) =>
+    addEventListener(link, 'click', async (event: MouseEvent) => {
+      if (!link.href) return;
+      event.preventDefault();
+      await navigateTo(controller, link.href as Url);
+    }),
+  );
 };

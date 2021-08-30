@@ -27,7 +27,7 @@ export const navigateTo = async (
     transitionComponent.setInBetweenTransition();
     document.title = newDocument.title;
     controller.setCurrentLocation(location.href as Url);
-    await app.adopted();
+    await app.adopted;
     await transitionComponent.transitionIn();
 
     if (onNavigationComplete) onNavigationComplete();

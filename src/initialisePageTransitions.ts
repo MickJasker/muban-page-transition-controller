@@ -1,13 +1,12 @@
 import { DisposableManager } from 'seng-disposable-manager';
-import type { ElementSelector } from './types/ElementSelector';
 import { checkCompatibility } from './checkCompatibility';
-import { getElementComponent } from './util/getElementComponent';
+import { getAppComponent, getElementComponent } from './util/getElementComponent';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
 import type { Url } from './types/Url';
 
 export interface PageTransitionOptions {
-  readonly transitionComponentSelector: ElementSelector;
+  readonly transitionComponentSelector: string;
   readonly onNavigationComplete: () => void;
   readonly linkElements: ReadonlyArray<HTMLAnchorElement>;
 }
@@ -30,6 +29,9 @@ export const initialisePageTransitions = async <
   const disposableManager = new DisposableManager();
 
   await checkCompatibility();
+  await (
+    await getAppComponent()
+  ).adopted;
 
   const transitionComponent = await getElementComponent<TransitionComponent>(
     options.transitionComponentSelector,

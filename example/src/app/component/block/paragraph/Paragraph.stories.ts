@@ -26,6 +26,7 @@ export default {
   },
 } as Meta;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const Default = () => ({
   template: `<hbs>
       {{> paragraph @root }}
@@ -36,6 +37,7 @@ Default.args = require('./data/data.yaml');
 export const Simple = Default.bind({});
 Simple.args = require('./data/data-simple');
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const CustomData = (args: { title: string }) => ({
   template: `<hbs>
       {{> paragraph @root }}

@@ -16,7 +16,7 @@ module.exports = function(api) {
           exclude: [
             // we don't use generators or async/await by default
             // but now we do
-            // 'transform-regenerator',
+            'transform-regenerator',
 
             // we don't use maps and sets by default
             // but now we do

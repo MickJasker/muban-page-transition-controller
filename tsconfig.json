@@ -1,8 +1,8 @@
 {
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "example"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,

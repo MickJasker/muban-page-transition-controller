@@ -6,6 +6,10 @@ module.exports = {
     browser: true,
   },
   extends: ['@mediamonks'],
+  rules: {
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'no-console': 'warn',
+  },
   settings: {
     // webpack integration
     'import/resolver': {

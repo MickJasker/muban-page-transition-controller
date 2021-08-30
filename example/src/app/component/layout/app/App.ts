@@ -1,4 +1,13 @@
 import AbstractComponent from '../../AbstractComponent';
+import TransitionComponent from '../../general/transition-component/TransitionComponent';
+import {
+  initialisePageTransitions,
+  PageTransitionController,
+  updateLinkElements,
+} from 'muban-page-transition-controller';
+
+// eslint-disable-next-line import/no-mutable-exports
+export let pageTransitionController: PageTransitionController<TransitionComponent> | null = null;
 
 export default class App extends AbstractComponent {
   public static readonly displayName: string = 'app-root';
@@ -8,6 +17,21 @@ export default class App extends AbstractComponent {
     super(element);
 
     // for generic app logic
+  }
+
+  public async adopted(): Promise<void> {
+    if (!pageTransitionController) {
+      pageTransitionController = await initialisePageTransitions<TransitionComponent>({
+        linkElements: this.getElements<HTMLAnchorElement>('a'),
+        transitionComponentSelector: `[data-component="${TransitionComponent.displayName}"]`,
+        onNavigationComplete: () => {
+          if (!pageTransitionController) return;
+          updateLinkElements(pageTransitionController, this.getElements<HTMLAnchorElement>('a'));
+        },
+      });
+
+      console.log(pageTransitionController);
+    }
   }
 
   public dispose() {

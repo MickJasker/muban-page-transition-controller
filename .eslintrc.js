@@ -5,7 +5,7 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.eslint.json',
   },
-  ignorePatterns: ['src/server-bundle.ts', 'config', 'src/polyfills.js', 'dist', 'example'],
+  ignorePatterns: ['src/server-bundle.ts', 'config', 'src/polyfills.js', 'dist', 'example', 'main.js', 'main.d.ts', 'lib', 'types'],
   rules: {
     // Additions
     '@typescript-eslint/consistent-type-imports': ['error'],

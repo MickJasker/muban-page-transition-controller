@@ -1,9 +1,9 @@
-import type { Url } from './types/Url';
-import type { PageTransitionController } from './initialisePageTransitions';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { checkCompatibility } from './checkCompatibility';
 import { fetchDocument } from './fetchDocument';
 import { renderPage } from './renderPage';
+import type { PageTransitionController } from './initialisePageTransitions';
+import type { Url } from './types/Url';
 
 export const navigateTo = async (
   controller: PageTransitionController<PageTransitionComponent>,
@@ -15,13 +15,13 @@ export const navigateTo = async (
 
   try {
     const [newDocument] = await Promise.all([
-      fetchDocument(url),
+      fetchDocument(url as Url),
       transitionComponent.transitionOut(),
     ]);
     const app = await renderPage(newDocument);
 
     if (updatePushState) {
-      history.pushState(null, newDocument.title, new URL(url));
+      history.pushState(null, newDocument.title, url);
     }
 
     transitionComponent.setInBetweenTransition();

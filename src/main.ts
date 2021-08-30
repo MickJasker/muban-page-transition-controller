@@ -1,19 +1,13 @@
-import {
-  initialisePageTransitions,
+import type {
   PageTransitionController,
   PageTransitionOptions,
-} from './initialisePageTransitions';
-import { navigateTo } from './navigateTo';
-import type { PageTransitionComponent } from './types/PageTransitionComponent';
-import { Url } from './types/Url';
-import { updateLinkElements } from './updateLinkElements';
+} from './lib/initialisePageTransitions';
+import { initialisePageTransitions } from './lib/initialisePageTransitions';
+import { navigateTo } from './lib/navigateTo';
+import { updateLinkElements } from './lib/updateLinkElements';
+import type { PageTransitionComponent } from './lib/types/PageTransitionComponent';
+import type { Url } from './lib/types/Url';
 
-export {
-  initialisePageTransitions,
-  navigateTo,
-  PageTransitionComponent,
-  PageTransitionController,
-  PageTransitionOptions,
-  updateLinkElements,
-  Url,
-};
+export { initialisePageTransitions, navigateTo, updateLinkElements };
+
+export type { PageTransitionComponent, PageTransitionController, PageTransitionOptions, Url };

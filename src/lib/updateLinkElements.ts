@@ -1,6 +1,6 @@
 import type { PageTransitionController } from './initialisePageTransitions';
-import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
+import type { PageTransitionComponent } from './types/PageTransitionComponent';
 
 export const updateLinkElements = (
   controller: PageTransitionController<PageTransitionComponent>,

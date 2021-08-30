@@ -1,11 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
     "module": "ESNext",
-    "outDir": "dist/esm",
+    "outDir": "./dist/esm",
+    "declarationDir": "./dist/esm",
     "lib": [
-      "ES2020",
+      "ESNext",
       "DOM",
       "DOM.Iterable"
     ]

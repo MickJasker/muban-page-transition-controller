@@ -7,6 +7,7 @@
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "lib": [
       "DOM",
       "DOM.Iterable",

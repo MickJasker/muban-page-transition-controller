@@ -2,20 +2,25 @@
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts", "example"],
   "compilerOptions": {
-    "target": "ES5",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
+    "outDir": "./tmp",
+    "declaration": true,
+    "declarationDir": "./decl",
     "sourceMap": true,
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "module": "commonjs",
-    "outDir": "dist",
+    "strict": true,
+    "target": "esnext",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "lib": [
-      "ES2015",
       "DOM",
-      "DOM.Iterable"
+      "DOM.Iterable",
+      "ES2017"
     ]
+//    "lib": [
+//      "ES5",
+//      "DOM",
+//      "DOM.Iterable"
+//    ]
   }
 }

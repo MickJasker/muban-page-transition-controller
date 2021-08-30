@@ -16,5 +16,7 @@ node_modules/
 ## only ignore in git
 /lib
 /loaders
-/index.js
-/index.d.ts
+/types
+/main.js
+/main.js.map
+/main.d.ts

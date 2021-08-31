@@ -12,12 +12,13 @@ export interface PageTransitionOptions {
 }
 
 export interface PageTransitionController<TransitionComponent extends PageTransitionComponent> {
-  readonly transitionComponent: TransitionComponent;
+  transitionComponent: TransitionComponent;
   readonly disposableManager: DisposableManager;
   linkElements: ReadonlyArray<HTMLAnchorElement>;
   currentLocation: Url;
   readonly setCurrentLocation: (url: Url) => void;
   readonly setLinkElements: (elements: ReadonlyArray<HTMLAnchorElement>) => void;
+  readonly resetTransitionComponent: () => Promise<void>;
   onNavigationComplete?: () => void;
 }
 
@@ -49,6 +50,11 @@ export const initialisePageTransitions = async <
     setLinkElements: (elements) => {
       controller.linkElements = elements;
     },
+    resetTransitionComponent: async (): Promise<void> => {
+      controller.transitionComponent = await getElementComponent<TransitionComponent>(
+        options.transitionComponentSelector,
+      )
+    }
   };
 
   createEventListeners(controller, controller.linkElements);

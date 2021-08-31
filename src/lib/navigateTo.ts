@@ -11,12 +11,11 @@ export const navigateTo = async (
   updatePushState = true,
 ): Promise<void> => {
   await checkCompatibility();
-  const { transitionComponent, onNavigationComplete } = controller;
 
   try {
     const [newDocument] = await Promise.all([
       fetchDocument(url as Url),
-      transitionComponent.transitionOut(),
+      controller.transitionComponent.transitionOut(),
     ]);
     const app = await renderPage(newDocument);
 
@@ -24,14 +23,16 @@ export const navigateTo = async (
       history.pushState(null, newDocument.title, url);
     }
 
-    transitionComponent.setInBetweenTransition();
+    await controller.resetTransitionComponent();
+    controller.transitionComponent.setInBetweenTransition();
     document.title = newDocument.title;
     controller.setCurrentLocation(location.href as Url);
     await app.adopted;
-    await transitionComponent.transitionIn();
+    await controller.transitionComponent.transitionIn();
 
-    if (onNavigationComplete) onNavigationComplete();
+    if (controller.onNavigationComplete) controller.onNavigationComplete();
   } catch (error) {
     location.replace(url);
+    throw error;
   }
 };

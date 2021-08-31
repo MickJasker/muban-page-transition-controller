@@ -1,10 +1,10 @@
-import AbstractComponent from '../../AbstractComponent';
-import TransitionComponent from '../../general/transition-component/TransitionComponent';
 import {
   initialisePageTransitions,
   PageTransitionController,
   updateLinkElements,
 } from 'muban-page-transition-controller';
+import AbstractComponent from '../../AbstractComponent';
+import TransitionComponent from '../../general/transition-component/TransitionComponent';
 
 // eslint-disable-next-line import/no-mutable-exports
 export let pageTransitionController: PageTransitionController<TransitionComponent> | null = null;
@@ -29,8 +29,6 @@ export default class App extends AbstractComponent {
           updateLinkElements(pageTransitionController, this.getElements<HTMLAnchorElement>('a'));
         },
       });
-
-      console.log(pageTransitionController);
     }
   }
 

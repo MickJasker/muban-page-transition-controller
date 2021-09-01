@@ -11,9 +11,12 @@ node_modules/
 /.nyc_output/
 /tmp/
 /decl/
+/dist/
 
 ## only ignore in git
 /lib
 /loaders
-/index.js
-/index.d.ts
+/types
+/main.js
+/main.js.map
+/main.d.ts

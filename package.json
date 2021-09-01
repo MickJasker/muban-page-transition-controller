@@ -1,11 +1,51 @@
 {
   "name": "muban-page-transition-controller",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
+  "module": "./dist/esm/main.js",
+  "types": "main.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "yarn && yarn watch",
+    "watch": "tsc -w -d --skipLibCheck",
+    "build": "npm-run-all -s clean build:* clean:build",
+    "build:ts": "tsc -p ./tsconfig.json && shx cp -Rf decl/* . && shx cp -Rf tmp/* .",
+    "build:ts-esm": "tsc -p ./tsconfig.esm.json",
+    "clean": "npm-run-all clean:*",
+    "clean:build": "shx rm -rf tmp decl",
+    "clean:npm": "shx rm -rf lib dist index.js index.d.ts",
+    "lint": "eslint src --ext .ts --cache",
+    "fix": "eslint src --ext .ts --cache --fix",
+    "prepublishOnly": "yarn build"
+  },
+  "lint-staged": {
+    "linters": {
+      "src/**/*.{js,ts,scss,json}": [
+        "yarn fix",
+        "git add"
+      ],
+      "src/**/*.{js,ts}": [
+        "eslint --ext .ts --cache"
+      ]
+    }
   },
   "author": "Mick Jasker <mick.jasker@mediamonks.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@mediamonks/eslint-config-base": "^1.0.2",
+    "@types/node": "14",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.2",
+    "shx": "^0.3.3",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "isntnt": "^1.4.6",
+    "muban-core": "^2.1.2",
+    "seng-disposable-event-listener": "^2.0.1",
+    "seng-disposable-manager": "^2.0.0"
+  }
 }

@@ -1,0 +1,26 @@
+{
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts", "example"],
+  "compilerOptions": {
+    "outDir": "./tmp",
+    "declaration": true,
+    "declarationDir": "./decl",
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2017"
+    ]
+//    "lib": [
+//      "ES5",
+//      "DOM",
+//      "DOM.Iterable"
+//    ]
+  }
+}

@@ -1,0 +1,6 @@
+build/**/*
+build-tools/**/*
+template/**/*
+script/**/*
+src/app/bootstrap.dev.ts
+src/app/bootstrap.dist.ts

@@ -1,6 +1,6 @@
 {
   "name": "muban-page-transition-controller",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "",
   "main": "main.js",
   "module": "./dist/esm/main.js",

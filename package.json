@@ -31,6 +31,9 @@
   },
   "author": "Mick Jasker <mick.jasker@mediamonks.com>",
   "license": "MIT",
+  "peerDependencies": {
+    "muban-core": "^2.1.2"
+  },
   "devDependencies": {
     "@mediamonks/eslint-config-base": "^1.0.2",
     "@types/node": "14",
@@ -43,7 +46,6 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "isntnt": "^1.4.6",
     "muban-core": "^2.1.2",
     "seng-disposable-event-listener": "^2.0.1",
     "seng-disposable-manager": "^2.0.0"

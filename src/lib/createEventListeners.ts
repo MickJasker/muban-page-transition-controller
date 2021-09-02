@@ -1,7 +1,7 @@
 import { addEventListener } from 'seng-disposable-event-listener';
-import type { PageTransitionController } from './initialisePageTransitions';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { navigateTo } from './navigateTo';
+import {PageTransitionController} from "./types/PageTransitionController";
 
 export const onHistoryChange = async (
   controller: PageTransitionController<PageTransitionComponent>,

@@ -3,24 +3,16 @@ import { checkCompatibility } from './checkCompatibility';
 import { getAppComponent, getElementComponent } from './util/getElementComponent';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
+import { PageTransitionController } from './types/PageTransitionController';
+import { PageTransitionOptions } from './types/PageTransitionOptions';
 
-export interface PageTransitionOptions {
-  readonly transitionComponentSelector: string;
-  readonly onNavigationComplete: () => void;
-  readonly linkElements: ReadonlyArray<HTMLAnchorElement>;
-}
-
-export interface PageTransitionController<TransitionComponent extends PageTransitionComponent> {
-  transitionComponent: TransitionComponent;
-  readonly disposableManager: DisposableManager;
-  linkElements: ReadonlyArray<HTMLAnchorElement>;
-  currentLocation: string;
-  readonly setCurrentLocation: (string: string) => void;
-  readonly setLinkElements: (elements: ReadonlyArray<HTMLAnchorElement>) => void;
-  readonly resetTransitionComponent: () => Promise<void>;
-  onNavigationComplete?: () => void;
-}
-
+/**
+ * Initialise an instance of the `PageTransitionController`
+ *
+ * @template TransitionComponent extends PageTransitionComponent
+ * @param options {PageTransitionOptions} General options for the controller
+ * @return Promise<PageTransitionController<TransitionComponent>> Controller instance
+ * */
 export const initialisePageTransitions = async <
   TransitionComponent extends PageTransitionComponent,
 >(

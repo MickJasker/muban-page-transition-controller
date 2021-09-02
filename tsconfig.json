@@ -5,22 +5,16 @@
     "outDir": "./tmp",
     "declaration": true,
     "declarationDir": "./decl",
-    "sourceMap": true,
     "strict": true,
-    "target": "esnext",
+    "target": "ES5",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ES2017"
     ]
-//    "lib": [
-//      "ES5",
-//      "DOM",
-//      "DOM.Iterable"
-//    ]
   }
 }

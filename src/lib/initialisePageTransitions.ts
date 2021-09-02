@@ -10,6 +10,9 @@ export interface PageTransitionOptions {
   readonly linkElements: ReadonlyArray<HTMLAnchorElement>;
 }
 
+/**
+ *
+ * */
 export interface PageTransitionController<TransitionComponent extends PageTransitionComponent> {
   transitionComponent: TransitionComponent;
   readonly disposableManager: DisposableManager;
@@ -21,6 +24,13 @@ export interface PageTransitionController<TransitionComponent extends PageTransi
   onNavigationComplete?: () => void;
 }
 
+/**
+ * Initialise an instance of the `PageTransitionController`
+ *
+ * @template TransitionComponent extends PageTransitionComponent
+ * @param options {PageTransitionOptions} General options for the controller
+ * @return Promise<PageTransitionController<TransitionComponent>> Controller instance
+ * */
 export const initialisePageTransitions = async <
   TransitionComponent extends PageTransitionComponent,
 >(

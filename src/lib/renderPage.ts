@@ -2,6 +2,13 @@ import { cleanElement, initComponents } from 'muban-core';
 import type { App } from './types/App';
 import { getAppComponent } from './util/getElementComponent';
 
+/**
+ * Render the new DOM and reinitialise Muban components
+ *
+ * @param newPage {Document} New document for the new page
+ * @param currentPage {Document} Document of the current page. Defaults to `window.document`
+ * @return Promise<App> Return the App component of the new page
+ * */
 export const renderPage = async (
   newPage: Document,
   currentPage: Document = document,

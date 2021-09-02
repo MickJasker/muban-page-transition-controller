@@ -4,6 +4,13 @@ import { fetchDocument } from './fetchDocument';
 import { renderPage } from './renderPage';
 import type { PageTransitionController } from './initialisePageTransitions';
 
+/**
+ * Programmatically navigate to new route with page transition
+ *
+ * @param controller {PageTransitionController<PageTransitionComponent>} Controller instance your application uses for page transitions
+ * @param url {string} URL of the new page
+ * @param updatePushState {boolean} Optional boolean to determine if the pushState of the history should be updated. Should be be `false` when function is triggered by the `popstate` event.
+ * */
 export const navigateTo = async (
   controller: PageTransitionController<PageTransitionComponent>,
   url: string,

@@ -3,7 +3,7 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/muban-page-transition-controller)
 ![npm](https://img.shields.io/npm/v/muban-page-transition-controller)
 
-This library enables you to add page transitions to a Muban project
+This library enables you to add page transitions to a Muban project.
 
 ## Getting Started
 

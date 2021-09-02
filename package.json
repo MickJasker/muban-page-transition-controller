@@ -1,7 +1,9 @@
 {
   "name": "muban-page-transition-controller",
   "version": "1.0.0-alpha.0",
-  "description": "",
+  "description": "This library enables you to add page transitions to a Muban project.",
+  "repository": "https://github.com/MickJasker/muban-page-transition-controller",
+  "bugs": "https://github.com/MickJasker/muban-page-transition-controller/issues",
   "main": "main.js",
   "module": "./dist/esm/main.js",
   "types": "main.d.ts",
@@ -29,8 +31,11 @@
       ]
     }
   },
-  "author": "Mick Jasker <mick.jasker@mediamonks.com>",
+  "author": "Mick Jasker <mick.jasker@mediamonks.com> (https://media.monks.com)",
   "license": "MIT",
+  "files": [
+    "dist/*", "lib/*", "main.js", "main.d.ts"
+  ],
   "peerDependencies": {
     "muban-core": "^2.1.2"
   },

@@ -3,7 +3,6 @@ import { checkCompatibility } from './checkCompatibility';
 import { getAppComponent, getElementComponent } from './util/getElementComponent';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
-import type { Url } from './types/Url';
 
 export interface PageTransitionOptions {
   readonly transitionComponentSelector: string;
@@ -15,8 +14,8 @@ export interface PageTransitionController<TransitionComponent extends PageTransi
   transitionComponent: TransitionComponent;
   readonly disposableManager: DisposableManager;
   linkElements: ReadonlyArray<HTMLAnchorElement>;
-  currentLocation: Url;
-  readonly setCurrentLocation: (url: Url) => void;
+  currentLocation: string;
+  readonly setCurrentLocation: (string: string) => void;
   readonly setLinkElements: (elements: ReadonlyArray<HTMLAnchorElement>) => void;
   readonly resetTransitionComponent: () => Promise<void>;
   onNavigationComplete?: () => void;
@@ -42,9 +41,9 @@ export const initialisePageTransitions = async <
     transitionComponent,
     disposableManager,
     onNavigationComplete: options.onNavigationComplete,
-    currentLocation: location.href as Url,
+    currentLocation: location.href,
     linkElements: options.linkElements,
-    setCurrentLocation: (url: Url) => {
+    setCurrentLocation: (url: string) => {
       controller.currentLocation = url;
     },
     setLinkElements: (elements) => {

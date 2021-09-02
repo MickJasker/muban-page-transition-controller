@@ -3,18 +3,17 @@ import { checkCompatibility } from './checkCompatibility';
 import { fetchDocument } from './fetchDocument';
 import { renderPage } from './renderPage';
 import type { PageTransitionController } from './initialisePageTransitions';
-import type { Url } from './types/Url';
 
 export const navigateTo = async (
   controller: PageTransitionController<PageTransitionComponent>,
-  url: Url,
+  url: string,
   updatePushState = true,
 ): Promise<void> => {
   await checkCompatibility();
 
   try {
     const [newDocument] = await Promise.all([
-      fetchDocument(url as Url),
+      fetchDocument(url),
       controller.transitionComponent.transitionOut(),
     ]);
     const app = await renderPage(newDocument);
@@ -26,7 +25,7 @@ export const navigateTo = async (
     await controller.resetTransitionComponent();
     controller.transitionComponent.setInBetweenTransition();
     document.title = newDocument.title;
-    controller.setCurrentLocation(location.href as Url);
+    controller.setCurrentLocation(location.href);
     await app.adopted;
     await controller.transitionComponent.transitionIn();
 

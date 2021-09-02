@@ -16,7 +16,7 @@
     "clean": "npm-run-all clean:*",
     "clean:build": "shx rm -rf tmp decl",
     "clean:npm": "shx rm -rf lib dist index.js index.d.ts",
-    "docs": "typedoc ./src/main.ts",
+    "docs": "typedoc ./src/main.ts --disableSources",
     "prepare": "husky install",
     "lint": "eslint src --ext .ts --cache",
     "fix": "eslint src --ext .ts --cache --fix",

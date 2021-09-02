@@ -1,0 +1,36 @@
+name: Generate docs
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  generate_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Instal dependencies
+        run: yarn install
+
+      - name: Generate docs
+        run: yarn docs
+
+      - run: git config --global user.name "GitHub CD bot"
+      - run: git config --global user.email "mick.jasker@mediamonks.com"
+
+      - name: Commit changes
+        run: git add . && git commit -m 'Generate type docs'
+
+      - name: Push changes to the repository
+        run: git push
+        env:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+

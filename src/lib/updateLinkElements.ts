@@ -1,4 +1,4 @@
-import type { PageTransitionController } from './initialisePageTransitions';
+import {PageTransitionController} from "./types/PageTransitionController";
 import { createEventListeners } from './createEventListeners';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 

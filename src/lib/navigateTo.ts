@@ -2,7 +2,7 @@ import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { checkCompatibility } from './checkCompatibility';
 import { fetchDocument } from './fetchDocument';
 import { renderPage } from './renderPage';
-import type { PageTransitionController } from './initialisePageTransitions';
+import { PageTransitionController } from './types/PageTransitionController';
 
 /**
  * Programmatically navigate to new route with page transition

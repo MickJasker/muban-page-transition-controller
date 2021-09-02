@@ -5,7 +5,6 @@
     "outDir": "./tmp",
     "declaration": true,
     "declarationDir": "./decl",
-    "sourceMap": true,
     "strict": true,
     "target": "esnext",
     "allowJs": true,
@@ -17,10 +16,5 @@
       "DOM.Iterable",
       "ES2017"
     ]
-//    "lib": [
-//      "ES5",
-//      "DOM",
-//      "DOM.Iterable"
-//    ]
   }
 }

@@ -2,13 +2,12 @@ import { addEventListener } from 'seng-disposable-event-listener';
 import type { PageTransitionController } from './initialisePageTransitions';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { navigateTo } from './navigateTo';
-import type { Url } from './types/Url';
 
 export const onHistoryChange = async (
   controller: PageTransitionController<PageTransitionComponent>,
 ): Promise<void> => {
   if (controller.currentLocation === location.pathname) return;
-  await navigateTo(controller, location.href as Url, false);
+  await navigateTo(controller, location.href, false);
 };
 
 export const createEventListeners = (
@@ -23,7 +22,7 @@ export const createEventListeners = (
     addEventListener(link, 'click', async (event: MouseEvent) => {
       if (!link.href) return;
       event.preventDefault();
-      await navigateTo(controller, link.href as Url);
+      await navigateTo(controller, link.href);
     }),
   );
 };

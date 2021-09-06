@@ -1,6 +1,6 @@
 {
   "name": "muban-page-transition-controller",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "This library enables you to add page transitions to a Muban project.",
   "repository": "https://github.com/MickJasker/muban-page-transition-controller",
   "bugs": "https://github.com/MickJasker/muban-page-transition-controller/issues",
@@ -16,7 +16,7 @@
     "clean": "npm-run-all clean:*",
     "clean:build": "shx rm -rf tmp decl",
     "clean:npm": "shx rm -rf lib dist index.js index.d.ts",
-    "docs": "typedoc ./src/main.ts --disableSources",
+    "docs": "typedoc ./src/main.ts",
     "prepare": "husky install",
     "lint": "eslint src --ext .ts --cache",
     "fix": "eslint src --ext .ts --cache --fix",
@@ -25,7 +25,10 @@
   "author": "Mick Jasker <mick.jasker@mediamonks.com> (https://media.monks.com)",
   "license": "MIT",
   "files": [
-    "dist/*", "lib/*", "main.js", "main.d.ts"
+    "dist/*",
+    "lib/*",
+    "main.js",
+    "main.d.ts"
   ],
   "peerDependencies": {
     "muban-core": "^2.1.2"
@@ -42,7 +45,6 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "muban-core": "^2.1.2",
     "seng-disposable-event-listener": "^2.0.1",
     "seng-disposable-manager": "^2.0.0"

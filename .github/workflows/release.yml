@@ -2,7 +2,8 @@ name: Release
 
 on:
   release:
-    brances: [ master ]
+    brances:
+      - main
 
 jobs:
   release:
@@ -20,12 +21,6 @@ jobs:
 
       - name: Instal dependencies
         run: yarn install
-
-      - name: Lint
-        run: yarn lint
-
-      - name: Build
-        run: yarn build
 
       - name: Publish to NPM
         run: yarn publish --non-interactive

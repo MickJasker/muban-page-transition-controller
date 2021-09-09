@@ -10,5 +10,5 @@ export interface PageTransitionOptions {
   /**
    * Callback that is triggered when the navigation flow is complete
    * */
-  readonly onNavigationComplete: () => void;
+  readonly onNavigationComplete: (oldDocument: Document, newDocument: Document) => void;
 }

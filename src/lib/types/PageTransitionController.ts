@@ -36,5 +36,5 @@ export interface PageTransitionController<TransitionComponent extends PageTransi
   /**
    * Callback that is triggered when the navigation flow is complete
    * */
-  onNavigationComplete?: () => void;
+  onNavigationComplete?: (oldDocument: Document, newDocument: Document) => void;
 }

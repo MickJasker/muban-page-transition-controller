@@ -1,6 +1,6 @@
 import { DisposableManager } from 'seng-disposable-manager';
 import { checkCompatibility } from './checkCompatibility';
-import { getAppComponent, getElementComponent } from './util/getElementComponent';
+import { getElementComponent } from './util/getElementComponent';
 import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
 import { PageTransitionController } from './types/PageTransitionController';
@@ -21,9 +21,6 @@ export const initialisePageTransitions = async <
   const disposableManager = new DisposableManager();
 
   await checkCompatibility();
-  await (
-    await getAppComponent()
-  ).adopted;
 
   const transitionComponent = await getElementComponent<TransitionComponent>(
     options.transitionComponentSelector,
@@ -33,6 +30,7 @@ export const initialisePageTransitions = async <
     transitionComponent,
     disposableManager,
     onNavigationComplete: options.onNavigationComplete,
+    onBeforeTransitionIn: options.onBeforeTransitionIn,
     currentLocation: location.href,
     linkElements: options.linkElements,
     setCurrentLocation: (url: string) => {

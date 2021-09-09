@@ -19,6 +19,7 @@ export const navigateTo = async (
   await checkCompatibility();
 
   try {
+    const oldDocument = document;
     const [newDocument] = await Promise.all([
       fetchDocument(url),
       controller.transitionComponent.transitionOut(),
@@ -33,10 +34,10 @@ export const navigateTo = async (
     controller.transitionComponent.setInBetweenTransition();
     document.title = newDocument.title;
     controller.setCurrentLocation(location.href);
-    await app.adopted;
+    if (controller.onBeforeTransitionIn) await controller.onBeforeTransitionIn();
     await controller.transitionComponent.transitionIn();
 
-    if (controller.onNavigationComplete) controller.onNavigationComplete();
+    if (controller.onNavigationComplete) controller.onNavigationComplete(oldDocument, newDocument);
   } catch (error) {
     location.replace(url);
     throw error;

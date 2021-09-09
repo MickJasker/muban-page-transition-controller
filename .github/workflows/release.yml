@@ -2,8 +2,8 @@ name: Release
 
 on:
   release:
-    brances:
-      - main
+    types:
+      - published
 
 jobs:
   release:

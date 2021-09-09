@@ -37,4 +37,8 @@ export interface PageTransitionController<TransitionComponent extends PageTransi
    * Callback that is triggered when the navigation flow is complete
    * */
   onNavigationComplete?: (oldDocument: Document, newDocument: Document) => void;
+  /**
+   * Callback that is triggered after the page is rendered but before the in transition is triggered
+   * */
+  onBeforeTransitionIn?: () => Promise<void> | void;
 }

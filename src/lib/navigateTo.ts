@@ -34,7 +34,7 @@ export const navigateTo = async (
     controller.transitionComponent.setInBetweenTransition();
     document.title = newDocument.title;
     controller.setCurrentLocation(location.href);
-    await app.adopted;
+    if (controller.onBeforeTransitionIn) await controller.onBeforeTransitionIn();
     await controller.transitionComponent.transitionIn();
 
     if (controller.onNavigationComplete) controller.onNavigationComplete(oldDocument, newDocument);

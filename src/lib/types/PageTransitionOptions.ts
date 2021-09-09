@@ -8,7 +8,11 @@ export interface PageTransitionOptions {
    * */
   readonly linkElements: ReadonlyArray<HTMLAnchorElement>;
   /**
+   * Callback that is triggered after the page is rendered but before the in transition is triggered
+   * */
+  readonly onBeforeTransitionIn?: () => Promise<void> | void;
+  /**
    * Callback that is triggered when the navigation flow is complete
    * */
-  readonly onNavigationComplete: (oldDocument: Document, newDocument: Document) => void;
+  readonly onNavigationComplete?: (oldDocument: Document, newDocument: Document) => void;
 }

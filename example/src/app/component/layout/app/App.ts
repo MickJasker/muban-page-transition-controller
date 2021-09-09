@@ -24,6 +24,9 @@ export default class App extends AbstractComponent {
       pageTransitionController = await initialisePageTransitions<TransitionComponent>({
         linkElements: this.getElements<HTMLAnchorElement>('a'),
         transitionComponentSelector: `[data-component="${TransitionComponent.displayName}"]`,
+        onBeforeTransitionIn: async () => {
+          await this.adopted;
+        },
         onNavigationComplete: () => {
           if (!pageTransitionController) return;
           updateLinkElements(pageTransitionController, this.getElements<HTMLAnchorElement>('a'));

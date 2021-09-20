@@ -1,15 +1,17 @@
 import { CoreComponent } from 'muban-core';
-import { PageTransitionComponent } from 'muban-page-transition-controller';
 import { gsap } from 'gsap';
+import { PageTransitionComponent } from 'muban-page-transition-controller';
 
 export default class TransitionComponent extends CoreComponent implements PageTransitionComponent {
   public static readonly displayName: string = 'transition-component';
 
+  public adopted(): void {
+    this.setInBetweenTransition();
+  }
+
   public transitionIn(): Promise<void> {
     return new Promise(resolve => {
-      const timeline = gsap.timeline({
-        onComplete: resolve,
-      });
+      const timeline = gsap.timeline();
       timeline
         .fromTo(
           this.element,
@@ -18,6 +20,8 @@ export default class TransitionComponent extends CoreComponent implements PageTr
           },
           {
             autoAlpha: 0,
+            delay: 0.1,
+            onComplete: resolve,
           },
         )
         .set(this.element, {

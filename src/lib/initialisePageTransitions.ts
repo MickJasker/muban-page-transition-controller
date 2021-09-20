@@ -20,11 +20,11 @@ export const initialisePageTransitions = async <
 ): Promise<PageTransitionController<TransitionComponent>> => {
   const disposableManager = new DisposableManager();
 
-  await checkCompatibility();
-
   const transitionComponent = await getElementComponent<TransitionComponent>(
     options.transitionComponentSelector,
   );
+
+  await checkCompatibility();
 
   const controller: PageTransitionController<TransitionComponent> = {
     transitionComponent,
@@ -33,6 +33,7 @@ export const initialisePageTransitions = async <
     onBeforeTransitionIn: options.onBeforeTransitionIn,
     currentLocation: location.href,
     linkElements: options.linkElements,
+    renderMode: options.renderMode || 'browser',
     setCurrentLocation: (url: string) => {
       controller.currentLocation = url;
     },
@@ -47,6 +48,13 @@ export const initialisePageTransitions = async <
   };
 
   createEventListeners(controller, controller.linkElements);
+
+  if (controller.renderMode === 'browser') {
+    if (controller.onBeforeTransitionIn) await controller.onBeforeTransitionIn();
+    await transitionComponent.transitionIn();
+
+    if (controller.onNavigationComplete) controller.onNavigationComplete(document);
+  }
 
   return controller;
 };

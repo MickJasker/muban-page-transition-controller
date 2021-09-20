@@ -19,7 +19,7 @@ jobs:
           always-auth: true
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Instal dependencies
+      - name: Install dependencies
         run: yarn install
 
       - name: Upgrade version

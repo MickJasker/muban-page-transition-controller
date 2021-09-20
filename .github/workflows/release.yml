@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.target_commitish }}
 
       - name: Use Node.js 14
         uses: actions/setup-node@v1
@@ -18,7 +20,6 @@ jobs:
           node-version: 14
           always-auth: true
           registry-url: 'https://registry.npmjs.org'
-          ref: ${{ github.event.release.target_commitish }}
 
       - name: Install dependencies
         run: yarn install

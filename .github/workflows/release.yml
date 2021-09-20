@@ -18,6 +18,7 @@ jobs:
           node-version: 14
           always-auth: true
           registry-url: 'https://registry.npmjs.org'
+          ref: ${{ github.event.release.target_commitish }}
 
       - name: Install dependencies
         run: yarn install

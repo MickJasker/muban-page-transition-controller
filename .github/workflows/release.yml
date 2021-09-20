@@ -30,7 +30,7 @@ jobs:
           npm version --no-git-tag-version ${{ github.event.release.tag_name }}
           git add .
           git commit -m "Release version ${{ github.event.release.tag_name }}"
-          git push
+          git push HEAD:${{ github.event.release.target_commitish }}
 
       - name: Publish to NPM
         run: yarn publish --non-interactive

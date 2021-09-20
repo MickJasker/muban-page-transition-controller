@@ -2,9 +2,8 @@
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts", "example"],
   "compilerOptions": {
-    "outDir": "./tmp",
+    "outDir": "./dist/cjs",
     "declaration": true,
-    "declarationDir": "./decl",
     "strict": true,
     "target": "ES5",
     "allowJs": true,

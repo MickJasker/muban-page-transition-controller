@@ -1,10 +1,6 @@
-import { initialisePageTransitions } from './lib/initialisePageTransitions';
-import { navigateTo } from './lib/navigateTo';
-import { updateLinkElements } from './lib/updateLinkElements';
-import type { PageTransitionComponent } from './lib/types/PageTransitionComponent';
-import type { PageTransitionController } from './lib/types/PageTransitionController';
-import type { PageTransitionOptions } from './lib/types/PageTransitionOptions';
-
-export { initialisePageTransitions, navigateTo, updateLinkElements };
-
-export type { PageTransitionComponent, PageTransitionController, PageTransitionOptions };
+export { initialisePageTransitions } from './lib/initialisePageTransitions';
+export { navigateTo } from './lib/navigateTo';
+export { updateLinkElements } from './lib/updateLinkElements';
+export type { PageTransitionComponent } from './lib/types/PageTransitionComponent';
+export type { PageTransitionController } from './lib/types/PageTransitionController';
+export type { PageTransitionOptions } from './lib/types/PageTransitionOptions';

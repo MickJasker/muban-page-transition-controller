@@ -125,10 +125,11 @@ The `initialisePageTransitions` function expects the following options:
 |-------------------------------|--------------------------------------------------------------------------------------------------|----------------------------|----------|
 | `transitionComponentSelector` | The selector that you use for your `PageTransitionComponent`                                     | `string`                   | `true`   |
 | `linkElements`                | The link elements that you want the page transition to trigger on                                | `Array<HTMLAnchorElement>` | `true`   |
+| `renderMode`                  | The selected render mode. `browser` mode is the default value and utilizes the default browser navigation. Slower because the new page fetch can only start until the transition is complete but it's safer to run in environments where advanced external scripts need to be executed. `dynamic` renders the new page in the same DOM without leaving the page. Use with caution as it only replaces the `app-root` in the DOM and doesn't executes advanced external scripts again. | `browser`/`dynamic` | `browser`  |
 | `onNavigationComplete`        | A callback that triggers when the navigation to a new page is finished, including the animations | `function`                 | `false`  |
 
 ### Updating link elements
-Because the DOM has changed when you navigated to a new page you need to update the supplied link elements to the new links on the page.
+When the `renderMode` is set to `dynamic` the whole DOM changes when you navigated to a new page you need to update the supplied link elements to the new links on the page.
 Utilize the `onNavigationComplete` for this and the `updateLinkElements` function which accepts the controller and the new linkElements as an argument, for example:
 ```typescript
 import {
@@ -183,7 +184,7 @@ The function expects the following arguments:
 | `updatePushState` | Update the history of the browser session. Will update the page URL and allow navigation with back/forward button. IMPORTANT: only supply `false` if you know what you are doing, in most cases it will break user expected behaviour. | `boolean`                  | `false`  | `true`  |
 
 ## Disposing the controller
-If you don't need your controller anymore it's important to dispose it, this will remove all active event listeners.
+If you don't need your controller anymore, it's important to dispose it, this will remove all active event listeners.
 ```typescript
 pageTransitionController.disposableManager.dispose();
 pageTransitionController = null;

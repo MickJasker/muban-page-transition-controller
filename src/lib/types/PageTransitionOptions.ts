@@ -25,7 +25,7 @@ export interface PageTransitionOptions {
    *
    * **Dynamic**
    *
-   * `dynamic` renders in the new page in the same DOM without leaving the page. Use with caution as it only replaces the `app-root` in the DOM and doesn't executes advanced external scripts again.
+   * `dynamic` renders the new page in the same DOM without leaving the page. Use with caution as it only replaces the `app-root` in the DOM and doesn't executes advanced external scripts again.
    * */
   readonly renderMode?: 'browser' | 'dynamic';
 }

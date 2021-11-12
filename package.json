@@ -1,6 +1,6 @@
 {
   "name": "muban-page-transition-controller",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "description": "This library enables you to add page transitions to a Muban project.",
   "repository": "https://github.com/MickJasker/muban-page-transition-controller",
   "bugs": "https://github.com/MickJasker/muban-page-transition-controller/issues",

@@ -1,15 +1,14 @@
 import { CoreComponent } from 'muban-core';
 import { gsap } from 'gsap';
-import { PageTransitionComponent } from 'muban-page-transition-controller';
 
-export default class TransitionComponent extends CoreComponent implements PageTransitionComponent {
+export default class TransitionComponent extends CoreComponent {
   public static readonly displayName: string = 'transition-component';
 
   public adopted(): void {
     this.setInBetweenTransition();
   }
 
-  public transitionIn(): Promise<void> {
+  public async transitionIn(): Promise<void> {
     return new Promise(resolve => {
       const timeline = gsap.timeline();
       timeline

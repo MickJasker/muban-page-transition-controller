@@ -1,4 +1,3 @@
-import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { checkCompatibility } from './checkCompatibility';
 import { fetchDocument } from './fetchDocument';
 import { renderPage } from './renderPage';
@@ -7,23 +6,23 @@ import { PageTransitionController } from './types/PageTransitionController';
 /**
  * Programmatically navigate to new route with page transition
  *
- * @param controller {PageTransitionController<PageTransitionComponent>} Controller instance your application uses for page transitions
+ * @param controller {PageTransitionController} Controller instance your application uses for page transitions
  * @param url {string} URL of the new page
  * @param updatePushState {boolean} Optional boolean to determine if the pushState of the history should be updated. Should be be `false` when function is triggered by the `popstate` event. Only usable when `render-mode` is `dynamic`.
  * */
 export const navigateTo = async (
-  controller: PageTransitionController<PageTransitionComponent>,
+  controller: PageTransitionController,
   url: string,
   updatePushState = true,
 ): Promise<void> => {
   try {
-    await checkCompatibility();
+    await checkCompatibility(controller.renderMode);
 
     if (controller.renderMode === 'dynamic') {
       const oldDocument = document;
       const [newDocument] = await Promise.all([
         fetchDocument(url),
-        controller.transitionComponent.transitionOut(),
+        controller.onBeforeNavigateOut ? controller.onBeforeNavigateOut() : undefined,
       ]);
       await renderPage(newDocument);
 
@@ -31,16 +30,13 @@ export const navigateTo = async (
         history.pushState(null, newDocument.title, url);
       }
 
-      await controller.resetTransitionComponent();
-      if (controller.transitionComponent.setInBetweenTransition) controller.transitionComponent.setInBetweenTransition();
       document.title = newDocument.title;
       controller.setCurrentLocation(location.href);
-      if (controller.onBeforeTransitionIn) await controller.onBeforeTransitionIn();
-      await controller.transitionComponent.transitionIn();
+      if (controller.onBeforeNavigateIn) await controller.onBeforeNavigateIn();
 
       if (controller.onNavigationComplete) controller.onNavigationComplete(newDocument, oldDocument);
     } else {
-      await controller.transitionComponent.transitionOut()
+      if (controller.onBeforeNavigateOut) await controller.onBeforeNavigateOut();
       location.replace(url);
     }
   } catch (error) {

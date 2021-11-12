@@ -12,39 +12,6 @@ This library enables you to add page transitions to a Muban project.
 yarn add muban-page-transition-controller
 ```
 
-### Create a PageTransitionComponent
-The controller needs you to supply a component that will display the animations.
-
-To be a `PageTransitionComponent` your component needs to implement the `PageTransitionComponent` interface, for example:
-```typescript
-import { CoreComponent } from 'muban-core';
-import { PageTransitionComponent } from 'muban-page-transition-controller';
-
-export default class TransitionComponent extends CoreComponent implements PageTransitionComponent {
-  public static readonly displayName: string = 'transition-component';
-
-  public transitionIn(): Promise<void> {
-    return new Promise(resolve => {
-      // add your animation code here
-    });
-  }
-
-  public transitionOut(): Promise<void> {
-    return new Promise(resolve => {
-      // add your animation code here
-    });
-  }
-
-  public setInBetweenTransition(): void {
-    // add your animation code here
-  }
-
-  public dispose() {
-    super.dispose();
-  }
-}
-```
-
 ### Init in App component
 To initialise the component in your project you first have to create a variable that can contain the controller.
 
@@ -59,9 +26,8 @@ Example:
  ```typescript
 import { PageTransitionController } from 'muban-page-transition-controller';
 import AbstractComponent from '../../AbstractComponent';
-import TransitionComponent from '../../general/transition-component/TransitionComponent';
 
-export let pageTransitionController: PageTransitionController<TransitionComponent> | null = null;
+export let pageTransitionController: PageTransitionController | null = null;
 
 export default class App extends AbstractComponent {
   public static readonly displayName: string = 'app-root';
@@ -91,7 +57,7 @@ import {
 import AbstractComponent from '../../AbstractComponent';
 import TransitionComponent from '../../general/transition-component/TransitionComponent';
 
-export let pageTransitionController: PageTransitionController<TransitionComponent> | null = null;
+export let pageTransitionController: PageTransitionController | null = null;
 
 export default class App extends AbstractComponent {
   public static readonly displayName: string = 'app-root';
@@ -107,7 +73,6 @@ export default class App extends AbstractComponent {
     if (!pageTransitionController) {
       pageTransitionController = await initialisePageTransitions<TransitionComponent>({
         linkElements: this.getElements<HTMLAnchorElement>('a'),
-        transitionComponentSelector: `[data-component="${TransitionComponent.displayName}"]`,
       });
     }
   }
@@ -123,9 +88,9 @@ The `initialisePageTransitions` function expects the following options:
 
 | key                           | description                                                                                      | type                       | required |
 |-------------------------------|--------------------------------------------------------------------------------------------------|----------------------------|----------|
-| `transitionComponentSelector` | The selector that you use for your `PageTransitionComponent`                                     | `string`                   | `true`   |
 | `linkElements`                | The link elements that you want the page transition to trigger on                                | `Array<HTMLAnchorElement>` | `true`   |
 | `renderMode`                  | The selected render mode. `browser` mode is the default value and utilizes the default browser navigation. Slower because the new page fetch can only start until the transition is complete but it's safer to run in environments where advanced external scripts need to be executed. `dynamic` renders the new page in the same DOM without leaving the page. Use with caution as it only replaces the `app-root` in the DOM and doesn't executes advanced external scripts again. | `browser`/`dynamic` | `browser`  |
+| `onNavigationComplete`        | A callback that triggers when the navigation to a new page is finished, including the animations | `function`                 | `false`  |
 | `onNavigationComplete`        | A callback that triggers when the navigation to a new page is finished, including the animations | `function`                 | `false`  |
 
 ### Updating link elements

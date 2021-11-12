@@ -1,12 +1,7 @@
-import {PageTransitionComponent} from "./PageTransitionComponent";
 import {DisposableManager} from "seng-disposable-manager";
 
 
-export interface PageTransitionController<TransitionComponent extends PageTransitionComponent> {
-  /**
-   * Returns the component instance that is currently used to handle the page transitions
-   * */
-  transitionComponent: TransitionComponent;
+export interface PageTransitionController<> {
   /**
    * Return the Disposable Manager that manages all disposable events. [Uses the `seng-disposable-manager` library](https://www.npmjs.com/package/seng-disposable-manager)
    * */
@@ -30,17 +25,17 @@ export interface PageTransitionController<TransitionComponent extends PageTransi
    * */
   readonly setLinkElements: (elements: ReadonlyArray<HTMLAnchorElement>) => void;
   /**
-   * Function that resets the transition component and reinitialises it after the new DOM is parsed in
-   * */
-  readonly resetTransitionComponent: () => Promise<void>;
-  /**
    * Callback that is triggered when the navigation flow is complete
    * */
   onNavigationComplete?: (newDocument: Document, oldDocument?: Document) => void;
   /**
-   * Callback that is triggered after the page is rendered but before the in transition is triggered
+   * Callback that is triggered after the page is rendered
    * */
-  onBeforeTransitionIn?: () => Promise<void> | void;
+  onBeforeNavigateIn?: () => Promise<void> | void;
+  /**
+   * Callback that is triggered before the navigation is triggered
+   * */
+  readonly onBeforeNavigateOut?: () => Promise<void> | void;
   /**
    * Render mode used.
    *

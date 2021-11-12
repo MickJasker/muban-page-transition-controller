@@ -1,12 +1,14 @@
+import { getComponentForElement } from 'muban-core';
 import AbstractComponent from '../../AbstractComponent';
 import TransitionComponent from '../../general/transition-component/TransitionComponent';
 import {
   initialisePageTransitions,
   PageTransitionController,
+  updateLinkElements,
 } from 'muban-page-transition-controller';
 
 // eslint-disable-next-line import/no-mutable-exports
-export let pageTransitionController: PageTransitionController<TransitionComponent> | null = null;
+export let pageTransitionController: PageTransitionController | null = null;
 
 export default class App extends AbstractComponent {
   public static readonly displayName: string = 'app-root';
@@ -14,16 +16,29 @@ export default class App extends AbstractComponent {
   // eslint-disable-next-line no-useless-constructor
   public constructor(element: HTMLElement) {
     super(element);
+  }
 
-    // for generic app logic
+  private get transitionComponent() {
+    return getComponentForElement<TransitionComponent>(
+      this.getElement(`[data-component="${TransitionComponent.displayName}"]`)!,
+    );
   }
 
   public async adopted(): Promise<void> {
     if (!pageTransitionController) {
-      pageTransitionController = await initialisePageTransitions<TransitionComponent>({
+      pageTransitionController = await initialisePageTransitions({
         linkElements: this.getElements<HTMLAnchorElement>('a'),
-        transitionComponentSelector: `[data-component="${TransitionComponent.displayName}"]`,
+        renderMode: 'dynamic',
+        onBeforeNavigateOut: async () => this.transitionComponent.transitionOut(),
+        onBeforeNavigateIn: async () => this.transitionComponent.transitionIn(),
+        onNavigationComplete: () => {
+          if (pageTransitionController) {
+            updateLinkElements(pageTransitionController, this.getElements<HTMLAnchorElement>('a'));
+          }
+        },
       });
+
+      await this.transitionComponent.transitionIn();
     }
   }
 

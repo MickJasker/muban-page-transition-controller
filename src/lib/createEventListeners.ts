@@ -1,17 +1,16 @@
 import { addEventListener } from 'seng-disposable-event-listener';
-import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { navigateTo } from './navigateTo';
 import {PageTransitionController} from "./types/PageTransitionController";
 
 export const onHistoryChange = async (
-  controller: PageTransitionController<PageTransitionComponent>,
+  controller: PageTransitionController,
 ): Promise<void> => {
   if (controller.currentLocation === location.pathname) return;
   await navigateTo(controller, location.href, false);
 };
 
 export const createEventListeners = (
-  controller: PageTransitionController<PageTransitionComponent>,
+  controller: PageTransitionController,
   linkElements: ReadonlyArray<HTMLAnchorElement>,
 ): void => {
   const { disposableManager } = controller;

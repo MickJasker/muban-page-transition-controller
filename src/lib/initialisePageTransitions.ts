@@ -1,7 +1,5 @@
 import { DisposableManager } from 'seng-disposable-manager';
 import { checkCompatibility } from './checkCompatibility';
-import { getElementComponent } from './util/getElementComponent';
-import type { PageTransitionComponent } from './types/PageTransitionComponent';
 import { createEventListeners } from './createEventListeners';
 import { PageTransitionController } from './types/PageTransitionController';
 import { PageTransitionOptions } from './types/PageTransitionOptions';
@@ -13,24 +11,18 @@ import { PageTransitionOptions } from './types/PageTransitionOptions';
  * @param options {PageTransitionOptions} General options for the controller
  * @return Promise<PageTransitionController<TransitionComponent>> Controller instance
  * */
-export const initialisePageTransitions = async <
-  TransitionComponent extends PageTransitionComponent,
->(
+export const initialisePageTransitions = async (
   options: PageTransitionOptions,
-): Promise<PageTransitionController<TransitionComponent>> => {
+): Promise<PageTransitionController> => {
   const disposableManager = new DisposableManager();
 
-  const transitionComponent = await getElementComponent<TransitionComponent>(
-    options.transitionComponentSelector,
-  );
+  await checkCompatibility(options.renderMode || 'browser');
 
-  await checkCompatibility();
-
-  const controller: PageTransitionController<TransitionComponent> = {
-    transitionComponent,
+  const controller: PageTransitionController = {
     disposableManager,
     onNavigationComplete: options.onNavigationComplete,
-    onBeforeTransitionIn: options.onBeforeTransitionIn,
+    onBeforeNavigateIn: options.onBeforeNavigateIn,
+    onBeforeNavigateOut: options.onBeforeNavigateOut,
     currentLocation: location.href,
     linkElements: options.linkElements,
     renderMode: options.renderMode || 'browser',
@@ -40,19 +32,12 @@ export const initialisePageTransitions = async <
     setLinkElements: (elements) => {
       controller.linkElements = elements;
     },
-    resetTransitionComponent: async (): Promise<void> => {
-      controller.transitionComponent = await getElementComponent<TransitionComponent>(
-        options.transitionComponentSelector,
-      )
-    }
   };
 
   createEventListeners(controller, controller.linkElements);
 
   if (controller.renderMode === 'browser') {
-    if (controller.onBeforeTransitionIn) await controller.onBeforeTransitionIn();
-    await transitionComponent.transitionIn();
-
+    if (controller.onBeforeNavigateIn) await controller.onBeforeNavigateIn();
     if (controller.onNavigationComplete) controller.onNavigationComplete(document);
   }
 

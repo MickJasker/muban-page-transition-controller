@@ -37,10 +37,10 @@ export const navigateTo = async (
       if (controller.onNavigationComplete) controller.onNavigationComplete(newDocument, oldDocument);
     } else {
       if (controller.onBeforeNavigateOut) await controller.onBeforeNavigateOut();
-      location.replace(url);
+      location.assign(url);
     }
   } catch (error) {
-    location.replace(url);
+    location.assign(url);
     throw error;
   }
 };

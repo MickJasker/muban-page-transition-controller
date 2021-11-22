@@ -15,7 +15,7 @@ export const createEventListeners = (
 ): void => {
   const { disposableManager } = controller;
 
-  disposableManager.add(addEventListener(window, 'popstate', () => onHistoryChange(controller)));
+  if (controller.renderMode === 'dynamic') disposableManager.add(addEventListener(window, 'popstate', () => onHistoryChange(controller)));
 
   linkElements.forEach((link) =>
     addEventListener(link, 'click', async (event: MouseEvent) => {
